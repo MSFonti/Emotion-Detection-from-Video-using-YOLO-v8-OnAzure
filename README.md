@@ -61,7 +61,42 @@ This script will detect faces and emotions in real-time using your webcam.
 
 
 ## Azure Container Apps Deployment
-1. Deploy a Container App Instance
+Deploy to Azure Container Apps
+Install Azure CLI and Azure Developer CLI (azd):
+
+Download and install from:
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd
+Login and set your subscription:
+
+Build a Docker image for your app:
+
+Create a Dockerfile in your project root if you don’t have one.
+Example Dockerfile:
+Build and push your image to Azure Container Registry (ACR):
+
+
+Create an ACR if you don’t have one:
+Log in to ACR:
+bash 
+az login
+az account set --subscription "<Your-Subscription-Name-or-ID>"
+
+Build and push the image:
+Create a Container App:
+
+(Adjust --target-port to your app’s port if needed.)
+
+Access the Application:
+
+Get the URL with:
+Open the URL in your browser.
+
+
+
+
+## Azure Web App Deployment
+
 
 
 ## AWS Deployment
