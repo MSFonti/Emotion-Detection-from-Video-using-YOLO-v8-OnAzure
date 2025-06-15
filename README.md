@@ -62,41 +62,97 @@ This script will detect faces and emotions in real-time using your webcam.
 
 ## Azure Container Apps Deployment
 Deploy to Azure Container Apps
-Install Azure CLI and Azure Developer CLI (azd):
+Install Azure CLI and Azure Developer CLI (azd)
 
 Download and install from:
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd
-Login and set your subscription:
 
+Login and set your subscription:
+```bash
+az login
+az account set --subscription "<Your-Subscription-Name-or-ID>"
+```
 Build a Docker image for your app:
 
 Create a Dockerfile in your project root if you don’t have one.
 Example Dockerfile:
+
+```bash
+FROM python:3.11
+WORKDIR /app
+COPY . .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+CMD ["python", "web_app.py"]
+```
+
 Build and push your image to Azure Container Registry (ACR):
 
-
 Create an ACR if you don’t have one:
+```bash
+az acr create --resource-group <ResourceGroup> --name <RegistryName> --sku Basic
+```
 Log in to ACR:
-bash 
-az login
-az account set --subscription "<Your-Subscription-Name-or-ID>"
+
+```bash
+az acr login --name <RegistryName>
+```
 
 Build and push the image:
+
+```bash
+az acr build --registry <RegistryName> --image webapp:latest .
+```
+
 Create a Container App:
+```bash
+az containerapp create `
+  --name <AppName> `
+  --resource-group <ResourceGroup> `
+  --environment <ContainerAppEnv> `
+  --image <RegistryName>.azurecr.io/webapp:latest `
+  --target-port 8000 `
+  --ingress 'external'
+```
 
 (Adjust --target-port to your app’s port if needed.)
 
 Access the Application:
-
-Get the URL with:
+```bash
+#Get the URL with:
+az containerapp show --name <AppName> --resource-group <ResourceGroup> --query properties.configuration.ingress.fqdn
+````
 Open the URL in your browser.
 
-
-
-
 ## Azure Web App Deployment
+Install Azure CLI:
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 
+Login and set your subscription:
+```bash
+az login
+az account set --subscription "<Your-Subscription-Name-or-ID>"
+```
+Create an App Service Plan and Web App:
+```bash
+az group create --name <ResourceGroup> --location <AzureRegion>
+az appservice plan create --name <AppServicePlan> --resource-group <ResourceGroup> --sku B1 --is-linux
+az webapp create --resource-group <ResourceGroup> --plan <AppServicePlan> --name <AppName> --runtime "PYTHON|3.11"
+```
+
+Deploy your code:
+```bash
+#Use zip deploy
+az webapp deploy --resource-group <ResourceGroup> --name <AppName> --src-path .
+```
+Or use GitHub Actions/other CI for automated deployment.
+
+Access the Application:
+```bash
+#Get the URL with:
+az webapp show --name <AppName> --resource-group <ResourceGroup> --query defaultHostName -o tsv
+```
+- You can test the deployed application by sending video files or streaming webcam video.
 
 
 ## AWS Deployment
@@ -107,7 +163,7 @@ Open the URL in your browser.
 - Deploy the app with eb deploy.
 2. Access the Application
 - After deployment, access your API via the provided URL: eb open
-- You can test the deployed application by sending video files or streaming webcam video.
+
 
 
 
