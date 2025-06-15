@@ -59,6 +59,11 @@ If you are running this locally or want to run the server, use the following dep
 To process a live video from your webcam or a recorded video file, run the following Python script:"python web_app.py"
 This script will detect faces and emotions in real-time using your webcam.
 
+
+## Azure Container Apps Deployment
+1. Deploy a Container App Instance
+
+
 ## AWS Deployment
 1. Deploy to AWS Elastic Beanstalk
 - Configure AWS CLI with aws configure (access keys and region).
