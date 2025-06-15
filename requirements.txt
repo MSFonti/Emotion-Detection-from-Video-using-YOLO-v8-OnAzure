@@ -11,5 +11,6 @@ opencv-python
 Pillow
 requests
 fastapi
-awscli
-awsebcli
+gunicorn
+azure-identity
+azure-storage-blob
