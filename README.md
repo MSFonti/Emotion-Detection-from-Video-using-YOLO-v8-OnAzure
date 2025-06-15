@@ -4,7 +4,7 @@ This project uses YOLOv8 for face detection based on the wider_face datasets and
 - Face Detection: Detects faces using YOLOv8, a state-of-the-art object detection model by trained on wider_face dataset.
 - Emotion Recognition: Classifies emotions from faces using a deep learning model trained on the fer2013 dataset.
 - Real-Time Processing: Process webcam video streams or recorded videos for emotion detection.
-- Deployment: Deploys the emotion detection model on AWS Elastic Beanstalk as a REST API.
+- Deployment: Deploys the emotion detection model on Azure Container Apps, Azure Web App or AWS Elastic Beanstalk as a REST API.
 
 ## Requirements
 ### System Dependencies
